@@ -1,25 +1,38 @@
-import logo from './logo.svg';
+import { useEffect, useState } from 'react';
 import './App.css';
+import Cart from './components/Cart';
+import Menu from './components/Menu';
+import Submission from './components/Submission';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+    const [order, setOrder] = useState([]);
+    const [userData, setUserData] = useState({confirm: false});
+    const [confirm, setConfirm] = useState(false);
+
+    useEffect(() => {
+        console.log(userData);
+        console.log(order);
+    }, [order, userData])
+
+    //state: completed? itemsSelected = [], formData
+
+    //create an application that reflects a restraunt ordering system
+    //create State, update that state
+    //when you place your order, show a confirmation of that
+
+    return (
+        <div className="App-header">
+            Order from Mark Anthony's Restaurant
+            { !confirm ? 
+                <div className='tablet'>
+                    <Menu setOrder={setOrder} />                   
+                    <Cart order={order} setConfirm={setConfirm} userData={userData}/> 
+                </div> : 
+                <Submission setUserData={setUserData} userData={userData} order={order}/>
+            }
+        </div>
+    );
 }
 
 export default App;
